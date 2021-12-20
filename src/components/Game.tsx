@@ -1,10 +1,10 @@
 import React, { KeyboardEvent } from 'react'
 import WordList from './WordList'
-import { WordProgress, EncounterProgress } from '../types/encounter'
+import { WordProgress, WordLists } from '../types/encounter'
 
 interface AttributeProps {
     wordProgress: WordProgress | null
-    encounterProgress: EncounterProgress
+    encounterProgress: WordLists
 
     onKeyDown: (e: KeyboardEvent) => void
 }
@@ -19,7 +19,7 @@ export default class Game extends React.Component<Props> {
             <div onKeyDown={this.props.onKeyDown}>
                 <WordList
                     wordProgress={wordProgress}
-                    encounterProgress={encounterProgress}
+                    wordLists={encounterProgress}
                 />
             </div>
         )

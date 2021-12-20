@@ -1,16 +1,19 @@
 import React, { KeyboardEvent } from 'react'
 import Game from '../components/Game'
-import { EncounterProgress, WordProgress } from '../types/encounter'
+import { WordLists, WordProgress } from '../types/encounter'
 import {
     encounterContentFactory,
-    encounterProgressFactory
+    encounterProgressFactory as wordListFactory,
+    wordListWordCompletor,
+    wordListWordSelector,
+    wordProgressFactory
 } from '../factories/encounter'
 
 interface Props {}
 
 interface State {
     wordProgress: WordProgress | null
-    encounterProgress: EncounterProgress
+    wordLists: WordLists
 }
 
 export default class GameContainer extends React.Component<Props, State> {
@@ -18,16 +21,16 @@ export default class GameContainer extends React.Component<Props, State> {
         super(props)
 
         const encounterContent = encounterContentFactory({ numWords: 4 })
-        const encounterProgress = encounterProgressFactory(encounterContent)
+        const wordLists = wordListFactory(encounterContent)
 
         this.state = {
             wordProgress: null,
-            encounterProgress
+            wordLists: wordLists
         }
     }
 
     render() {
-        const { wordProgress, encounterProgress } = this.state
+        const { wordProgress, wordLists: encounterProgress } = this.state
 
         return (
             <div onKeyDown={() => this.handleKeyDown}>
@@ -53,15 +56,15 @@ export default class GameContainer extends React.Component<Props, State> {
         console.log(e.key)
 
         if (this.state.wordProgress === null) {
-            this.handleSelectWord(e.key)
+            this.handleTrySelectWord(e.key)
         } else {
-            this.handleProgressWord(e.key)
+            this.handleTryProgressWord(e.key)
         }
     }
 
-    handleSelectWord(key: string) {
+    handleTrySelectWord(key: string) {
         const availableWordsStartingWithKey =
-            this.state.encounterProgress.availableWords.filter((word) =>
+            this.state.wordLists.availableWords.filter((word) =>
                 word.startsWith(key)
             )
 
@@ -69,7 +72,25 @@ export default class GameContainer extends React.Component<Props, State> {
             'availableWordsStartingWithKey',
             availableWordsStartingWithKey
         )
+
+        if (availableWordsStartingWithKey.length !== 0) {
+            this.selectWord(availableWordsStartingWithKey[0])
+        }
     }
 
-    handleProgressWord(key: string) {}
+    selectWord(word: string) {
+        this.setState({
+            wordProgress: wordProgressFactory(word),
+            wordLists: wordListWordSelector(this.state.wordLists, word)
+        })
+    }
+
+    completeWord(word: string) {
+        this.setState({
+            wordProgress: null,
+            wordLists: wordListWordCompletor(this.state.wordLists, word)
+        })
+    }
+
+    handleTryProgressWord(key: string) {}
 }

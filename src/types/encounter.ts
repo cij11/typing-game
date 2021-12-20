@@ -6,8 +6,7 @@ export interface EncounterContent {
     wordList: string[]
 }
 
-export interface EncounterProgress {
-    activeWord: string
+export interface WordLists {
     availableWords: string[]
     doneWords: string[]
     remainingWords: string[]
@@ -15,7 +14,7 @@ export interface EncounterProgress {
 }
 
 export interface WordProgress {
-    fullWord: string
+    word: string
     correctCharacters: string
     remainingCharacters: string
 }

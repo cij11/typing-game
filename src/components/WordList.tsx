@@ -1,9 +1,9 @@
 import React from 'react'
-import { EncounterProgress, WordProgress } from '../types/encounter'
+import { WordLists, WordProgress } from '../types/encounter'
 
 interface Props {
     wordProgress: WordProgress | null
-    encounterProgress: EncounterProgress
+    wordLists: WordLists
 }
 
 export default class WordList extends React.Component<Props> {
@@ -37,7 +37,7 @@ export default class WordList extends React.Component<Props> {
     }
 
     renderAvailableWords() {
-        const { encounterProgress } = this.props
+        const { wordLists: encounterProgress } = this.props
         return (
             <div>
                 <h3>Available</h3>
