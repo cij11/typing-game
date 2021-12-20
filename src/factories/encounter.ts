@@ -9,7 +9,14 @@ export const encounterContentFactory = (
     config: EncounterConfig
 ): EncounterContent => {
     return {
-        wordList: ['apple', 'banana', 'carrot', 'durian', 'eggplant']
+        wordList: [
+            'apple',
+            'banana',
+            'carrot',
+            'durian',
+            'eggplant',
+            'the quick brown fox jumps over the lazy dogs'
+        ]
     }
 }
 

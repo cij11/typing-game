@@ -16,11 +16,17 @@ interface Props {}
 interface State {
     wordProgress: WordProgress | null
     wordLists: WordLists
-
-    soundIndex: number
 }
 
 audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
+audioPlayer.loadPool({
+    name: 'keyhit',
+    paths: ['keystrike1.mp3', 'keystrike2.mp3', 'keystrike3.mp3']
+})
+audioPlayer.loadPool({
+    name: 'keymiss',
+    paths: ['mistype1.mp3', 'mistype2.mp3']
+})
 
 export default class GameContainer extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -31,8 +37,7 @@ export default class GameContainer extends React.Component<Props, State> {
 
         this.state = {
             wordProgress: null,
-            wordLists: wordLists,
-            soundIndex: 0
+            wordLists: wordLists
         }
     }
 
@@ -59,12 +64,6 @@ export default class GameContainer extends React.Component<Props, State> {
     }
 
     handleKeyDown = (e: any) => {
-        console.log('sound index', this.state.soundIndex)
-
-        audioPlayer.playClip('bell')
-
-        this.setState({ soundIndex: (this.state.soundIndex + 1) % 4 })
-
         console.log('handling keydown')
         console.log(e.key)
 
@@ -116,6 +115,7 @@ export default class GameContainer extends React.Component<Props, State> {
     handleTryProgressWord(key: string) {
         // Correct key press
         if (key === this.state.wordProgress?.remainingCharacters[0]) {
+            audioPlayer.playPool('keyhit')
             const wordProgress = wordProgressCharacterCompletor(
                 this.state.wordProgress
             )
@@ -127,6 +127,8 @@ export default class GameContainer extends React.Component<Props, State> {
             }
 
             return
+        } else {
+            audioPlayer.playPool('keymiss')
         }
     }
 }
