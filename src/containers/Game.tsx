@@ -6,7 +6,8 @@ import {
     encounterProgressFactory as wordListFactory,
     wordListWordCompletor,
     wordListWordSelector,
-    wordProgressFactory
+    wordProgressFactory,
+    wordProgressCharacterCompletor
 } from '../factories/encounter'
 
 interface Props {}
@@ -92,5 +93,26 @@ export default class GameContainer extends React.Component<Props, State> {
         })
     }
 
-    handleTryProgressWord(key: string) {}
+    progressWord(wordProgress: WordProgress) {
+        this.setState({
+            wordProgress
+        })
+    }
+
+    handleTryProgressWord(key: string) {
+        // Correct key press
+        if (key === this.state.wordProgress?.remainingCharacters[0]) {
+            const wordProgress = wordProgressCharacterCompletor(
+                this.state.wordProgress
+            )
+
+            if (wordProgress.remainingCharacters.length === 0) {
+                this.completeWord(wordProgress.word)
+            } else {
+                this.progressWord(wordProgress)
+            }
+
+            return
+        }
+    }
 }

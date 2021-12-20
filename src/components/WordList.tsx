@@ -30,19 +30,19 @@ export default class WordList extends React.Component<Props> {
         return (
             <div>
                 <h3>Active</h3>
-                <strong>{wordProgress.correctCharacters}</strong>
+                <strong>{wordProgress.doneCharacters}</strong>
                 {wordProgress.remainingCharacters}
             </div>
         )
     }
 
     renderAvailableWords() {
-        const { wordLists: encounterProgress } = this.props
+        const { wordLists } = this.props
         return (
             <div>
                 <h3>Available</h3>
                 <ul>
-                    {encounterProgress.availableWords.map((word) => (
+                    {wordLists.availableWords.map((word) => (
                         <li key={word}>{word}</li>
                     ))}
                 </ul>
@@ -51,10 +51,17 @@ export default class WordList extends React.Component<Props> {
     }
 
     renderDoneWords() {
+        const { wordLists } = this.props
+
         return (
             <div>
                 <h3>Done</h3>
-                <ul></ul>
+                <ul>
+                    {' '}
+                    {wordLists.doneWords.map((word) => (
+                        <li key={word}>{word}</li>
+                    ))}
+                </ul>
             </div>
         )
     }

@@ -15,6 +15,6 @@ export interface WordLists {
 
 export interface WordProgress {
     word: string
-    correctCharacters: string
+    doneCharacters: string
     remainingCharacters: string
 }

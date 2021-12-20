@@ -1,7 +1,7 @@
 import {
     EncounterContent,
     EncounterConfig,
-    WordLists as WordLists,
+    WordLists,
     WordProgress
 } from '../types/encounter'
 
@@ -28,8 +28,8 @@ export const encounterProgressFactory = (
 export const wordProgressFactory = (word: string): WordProgress => {
     return {
         word,
-        correctCharacters: '',
-        remainingCharacters: word
+        doneCharacters: word.slice(0, 1),
+        remainingCharacters: word.slice(1)
     }
 }
 
@@ -56,5 +56,17 @@ export const wordListWordCompletor = (
     return {
         ...wordLists,
         doneWords
+    }
+}
+
+export const wordProgressCharacterCompletor = (
+    wordProgress: WordProgress
+): WordProgress => {
+    return {
+        ...wordProgress,
+        doneCharacters:
+            wordProgress.doneCharacters +
+            wordProgress.remainingCharacters.slice(0, 1),
+        remainingCharacters: wordProgress.remainingCharacters.slice(1)
     }
 }
