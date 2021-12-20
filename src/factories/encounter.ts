@@ -9,7 +9,7 @@ export const encounterContentFactory = (
     config: EncounterConfig
 ): EncounterContent => {
     return {
-        wordList: ['apple', 'banana', 'carrot', 'duran', 'eggplant']
+        wordList: ['apple', 'banana', 'carrot', 'durian', 'eggplant']
     }
 }
 
@@ -28,8 +28,8 @@ export const encounterProgressFactory = (
 export const wordProgressFactory = (word: string): WordProgress => {
     return {
         word,
-        doneCharacters: word.slice(0, 1),
-        remainingCharacters: word.slice(1)
+        doneCharacters: '',
+        remainingCharacters: word
     }
 }
 

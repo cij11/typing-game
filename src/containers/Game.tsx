@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react'
+import React from 'react'
 import Game from '../components/Game'
 import { WordLists, WordProgress } from '../types/encounter'
 import {
@@ -58,7 +58,9 @@ export default class GameContainer extends React.Component<Props, State> {
 
         if (this.state.wordProgress === null) {
             this.handleTrySelectWord(e.key)
-        } else {
+        }
+
+        if (this.state.wordProgress !== null) {
             this.handleTryProgressWord(e.key)
         }
     }
