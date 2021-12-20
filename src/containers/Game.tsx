@@ -9,6 +9,7 @@ import {
     wordProgressFactory,
     wordProgressCharacterCompletor
 } from '../factories/encounter'
+import { audioPlayer } from '../support/audioplayer'
 
 interface Props {}
 
@@ -19,16 +20,7 @@ interface State {
     soundIndex: number
 }
 
-const keystrike1 = new Audio('/keystrike1.mp3')
-const k11 = new Audio('/keystrike1.mp3')
-const k12 = new Audio('/keystrike1.mp3')
-const k13 = new Audio('/keystrike1.mp3')
-const k14 = new Audio('/keystrike1.mp3')
-const keystrike2 = new Audio('/keystrike2.mp3')
-const keystrike3 = new Audio('/keystrike3.mp3')
-const keystrike4 = new Audio('/keystrike4.mp3')
-
-const k1Collection = [k11, k12, k13, k14]
+audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
 
 export default class GameContainer extends React.Component<Props, State> {
     constructor(props: Props) {
@@ -67,8 +59,9 @@ export default class GameContainer extends React.Component<Props, State> {
     }
 
     handleKeyDown = (e: any) => {
-        k1Collection[this.state.soundIndex].play()
         console.log('sound index', this.state.soundIndex)
+
+        audioPlayer.playClip('bell')
 
         this.setState({ soundIndex: (this.state.soundIndex + 1) % 4 })
 
