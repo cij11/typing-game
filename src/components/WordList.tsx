@@ -64,12 +64,14 @@ export default class WordList extends React.Component<Props> {
     renderDoneWords() {
         const { wordLists } = this.props
 
+        const reversedDoneWords = [...wordLists.doneWords].reverse()
+
         return (
             <div>
                 <h3>Done</h3>
                 <ul>
                     {' '}
-                    {wordLists.doneWords.map((doneWord, i) => (
+                    {reversedDoneWords.map((doneWord, i) => (
                         <li key={i}>
                             {doneWord.mistakeCount} - {doneWord.word}
                         </li>
