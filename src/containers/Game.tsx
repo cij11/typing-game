@@ -8,7 +8,8 @@ import {
     wordListWordSelector,
     wordProgressFactory,
     wordProgressCharacterCompletor,
-    pickAvailableWords
+    pickAvailableWords,
+    wordProgressWrongCharacter
 } from '../factories/encounter'
 import { audioPlayer } from '../support/audioplayer'
 
@@ -100,11 +101,11 @@ export default class GameContainer extends React.Component<Props, State> {
         })
     }
 
-    completeWord(word: string) {
+    completeWord(wordProgress: WordProgress) {
         this.setState({
             wordProgress: null,
             wordLists: pickAvailableWords(
-                wordListWordCompletor(this.state.wordLists, word)
+                wordListWordCompletor(this.state.wordLists, wordProgress)
             )
         })
     }
@@ -117,7 +118,9 @@ export default class GameContainer extends React.Component<Props, State> {
 
     handleTryProgressWord(key: string) {
         // Correct key press
-        if (key === this.state.wordProgress?.remainingCharacters[0]) {
+        if (!this.state.wordProgress) {
+            console.error('Tried to progress word, but no word in progress')
+        } else if (key === this.state.wordProgress.remainingCharacters[0]) {
             audioPlayer.playPool('keyhit')
             const wordProgress = wordProgressCharacterCompletor(
                 this.state.wordProgress
@@ -125,13 +128,17 @@ export default class GameContainer extends React.Component<Props, State> {
 
             if (wordProgress.remainingCharacters.length === 0) {
                 audioPlayer.playClip('bell')
-                this.completeWord(wordProgress.word)
+                this.completeWord(wordProgress)
             } else {
                 this.progressWord(wordProgress)
             }
 
             return
         } else {
+            const wordProgress = wordProgressWrongCharacter(
+                this.state.wordProgress
+            )
+            this.progressWord(wordProgress)
             audioPlayer.playPool('keymiss')
         }
     }

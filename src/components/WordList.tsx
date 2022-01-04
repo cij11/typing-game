@@ -69,8 +69,10 @@ export default class WordList extends React.Component<Props> {
                 <h3>Done</h3>
                 <ul>
                     {' '}
-                    {wordLists.doneWords.map((word) => (
-                        <li key={word}>{word}</li>
+                    {wordLists.doneWords.map((doneWord, i) => (
+                        <li key={i}>
+                            {doneWord.mistakeCount} - {doneWord.word}
+                        </li>
                     ))}
                 </ul>
             </div>

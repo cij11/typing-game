@@ -152,7 +152,9 @@ export const wordProgressFactory = (word: string): WordProgress => {
     return {
         word,
         doneCharacters: '',
-        remainingCharacters: word
+        remainingCharacters: word,
+        mistakeCount: 0,
+        wasLastCharacterMistake: false
     }
 }
 
@@ -200,9 +202,9 @@ export const pickAvailableWords = (wordLists: WordLists): WordLists => {
 
 export const wordListWordCompletor = (
     wordLists: WordLists,
-    word: string
+    doneWord: WordProgress
 ): WordLists => {
-    const doneWords = [...wordLists.doneWords, word]
+    const doneWords = [...wordLists.doneWords, doneWord]
 
     return {
         ...wordLists,
@@ -218,6 +220,22 @@ export const wordProgressCharacterCompletor = (
         doneCharacters:
             wordProgress.doneCharacters +
             wordProgress.remainingCharacters.slice(0, 1),
-        remainingCharacters: wordProgress.remainingCharacters.slice(1)
+        remainingCharacters: wordProgress.remainingCharacters.slice(1),
+        wasLastCharacterMistake: false
+    }
+}
+
+export const wordProgressWrongCharacter = (
+    wordProgress: WordProgress
+): WordProgress => {
+    // Increment the number of mistakes, only if this is the first time that character has been entered incorrectly
+    const isNewWrongCharacter = !wordProgress.wasLastCharacterMistake
+    const newMistakeCount = isNewWrongCharacter
+        ? wordProgress.mistakeCount + 1
+        : wordProgress.mistakeCount
+    return {
+        ...wordProgress,
+        mistakeCount: newMistakeCount,
+        wasLastCharacterMistake: true
     }
 }
