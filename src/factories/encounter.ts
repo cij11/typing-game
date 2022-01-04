@@ -14,13 +14,45 @@ export const encounterContentFactory = (
     return {
         allWords: [
             'apple',
+            'alphabet',
+            'asteroid',
+            'arm',
+            'brain',
+            'broken',
+            'ball',
+            'batter',
+            'blue',
             'banana',
             'carrot',
+            'court',
+            'clam',
+            'clap',
+            'clasp',
+            'crumb',
             'durian',
+            'delta',
+            'door',
+            'disaster',
+            'demonic',
             'eggplant',
+            'else',
+            'elephant',
+            'entertain',
+            'elf',
             'fargo',
+            'felt',
+            'frost',
+            'flint',
+            'for',
+            'first',
+            'fork',
             'ghost',
-            'getto',
+            'ghetto',
+            'globe',
+            'grin',
+            'glyph',
+            'graph',
+            'grotesque',
             'igloo',
             'icicle',
             'I',
@@ -139,7 +171,7 @@ export const wordListWordSelector = (
 }
 
 export const pickAvailableWords = (wordLists: WordLists): WordLists => {
-    const availableWords: string[] = []
+    const availableWords: string[] = [...wordLists.availableWords]
 
     while (availableWords.length < AVAILABLE_WORD_SET_SIZE) {
         const candidateWord = wordLists.remainingWords.pop()
