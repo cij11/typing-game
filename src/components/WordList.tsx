@@ -18,6 +18,10 @@ export default class WordList extends React.Component<Props> {
     }
 
     renderActiveWord() {
+        const hiddenStyle = {
+            color: '#00000000'
+        }
+
         const { wordProgress } = this.props
         if (wordProgress === null) {
             return (
@@ -30,8 +34,15 @@ export default class WordList extends React.Component<Props> {
         return (
             <div>
                 <h3>Active</h3>
-                <strong>{wordProgress.doneCharacters}</strong>
-                {wordProgress.remainingCharacters}
+                <ul>
+                    <li>{wordProgress.word}</li>
+                    <li>
+                        <span style={hiddenStyle}>
+                            {wordProgress.doneCharacters}
+                        </span>
+                        <span>{wordProgress.remainingCharacters}</span>
+                    </li>
+                </ul>
             </div>
         )
     }

@@ -3,11 +3,12 @@ import Game from '../components/Game'
 import { WordLists, WordProgress } from '../types/encounter'
 import {
     encounterContentFactory,
-    encounterProgressFactory as wordListFactory,
+    wordListsFactory as wordListFactory,
     wordListWordCompletor,
     wordListWordSelector,
     wordProgressFactory,
-    wordProgressCharacterCompletor
+    wordProgressCharacterCompletor,
+    pickAvailableWords
 } from '../factories/encounter'
 import { audioPlayer } from '../support/audioplayer'
 
@@ -33,7 +34,7 @@ export default class GameContainer extends React.Component<Props, State> {
         super(props)
 
         const encounterContent = encounterContentFactory({ numWords: 4 })
-        const wordLists = wordListFactory(encounterContent)
+        const wordLists = pickAvailableWords(wordListFactory(encounterContent))
 
         this.state = {
             wordProgress: null,
@@ -102,7 +103,9 @@ export default class GameContainer extends React.Component<Props, State> {
     completeWord(word: string) {
         this.setState({
             wordProgress: null,
-            wordLists: wordListWordCompletor(this.state.wordLists, word)
+            wordLists: pickAvailableWords(
+                wordListWordCompletor(this.state.wordLists, word)
+            )
         })
     }
 
@@ -121,6 +124,7 @@ export default class GameContainer extends React.Component<Props, State> {
             )
 
             if (wordProgress.remainingCharacters.length === 0) {
+                audioPlayer.playClip('bell')
                 this.completeWord(wordProgress.word)
             } else {
                 this.progressWord(wordProgress)

@@ -3,7 +3,7 @@ export interface EncounterConfig {
 }
 
 export interface EncounterContent {
-    wordList: string[]
+    allWords: string[]
 }
 
 export interface WordLists {
