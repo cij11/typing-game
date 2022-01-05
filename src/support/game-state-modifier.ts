@@ -42,6 +42,21 @@ export const getWordFromRemaining = (
     }
 }
 
+export const createStackWord = (
+    word: string,
+    topWordIndex: number
+): StackWord => {
+    return {
+        id: topWordIndex,
+        isActive: false,
+        word: word,
+        doneCharacters: word,
+        remainingCharacters: '',
+        mistakeCount: 0,
+        wasLastCharacterMistake: false
+    }
+}
+
 // export const removeWordById = (
 //     stack: StackWord[],
 //     id: number
