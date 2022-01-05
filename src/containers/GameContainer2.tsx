@@ -10,6 +10,17 @@ import {
     updateStackWord
 } from '../support/game-state-modifier'
 import { StackWord } from '../types/stack'
+import { audioPlayer } from '../support/audioplayer'
+
+audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
+audioPlayer.loadPool({
+    name: 'keyhit',
+    paths: ['keystrike1.mp3', 'keystrike2.mp3', 'keystrike3.mp3']
+})
+audioPlayer.loadPool({
+    name: 'keymiss',
+    paths: ['mistype1.mp3', 'mistype2.mp3']
+})
 
 interface Props {}
 
@@ -156,19 +167,21 @@ export default class GameContainer2 extends React.Component<Props, State> {
     }
 
     progressWord(stackWord: StackWord, stack: StackWord[]) {
+        audioPlayer.playPool('keyhit')
+
         const progressedStackWord = progressStackWord(stackWord)
 
         let updatedStack = updateStackWord(progressedStackWord, stack)
 
         if (progressedStackWord.remainingCharacters.length === 0) {
+            audioPlayer.playClip('bell')
+
             updatedStack = removeStackWord(progressedStackWord, stack)
 
             this.setState({
                 stack: updatedStack,
                 selectedWordId: null
             })
-
-            // TODO play completed sound
         } else {
             this.setState({
                 stack: updatedStack
@@ -177,6 +190,8 @@ export default class GameContainer2 extends React.Component<Props, State> {
     }
 
     missWord(stackWord: StackWord, stack: StackWord[]) {
+        audioPlayer.playPool('keymiss')
+
         if (stackWord.wasLastCharacterMistake) {
             // Do nothing. Only first mistake matters
         } else {
