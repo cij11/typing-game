@@ -1,4 +1,4 @@
-const NUM_SAMPLE_COPIES = 8
+const NUM_SAMPLE_COPIES = 16
 
 export interface NamedClipConfig {
     name: string

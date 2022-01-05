@@ -1,5 +1,4 @@
 import React from 'react'
-import GameContainer from './containers/Game'
 import GameLauncherContainer from './containers/GameLauncher'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import GameContainer2 from './containers/GameContainer2'

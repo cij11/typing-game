@@ -31,9 +31,11 @@ interface State {
     stack: StackWord[]
     score: number
     topWordIndex: number
+    isGameLost: boolean
 }
 
 const TICK_DURATION = 2000
+const MAX_STACK_SIZE = 15
 
 export default class GameContainer2 extends React.Component<Props, State> {
     tick: NodeJS.Timeout | undefined
@@ -47,7 +49,8 @@ export default class GameContainer2 extends React.Component<Props, State> {
             remainingWords: [],
             stack: [],
             score: 10,
-            topWordIndex: 0
+            topWordIndex: 0,
+            isGameLost: false
         }
     }
 
