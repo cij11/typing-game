@@ -17,13 +17,13 @@ export default class Stack extends React.Component<Props> {
                 <ul>
                     {this.props.stack.map((stackWord) => (
                         <li key={stackWord.id}>
-                            <li>{stackWord.word}</li>
-                            <li>
+                            <div>{stackWord.word}</div>
+                            <div>
+                                <span>{stackWord.doneCharacters}</span>
                                 <span style={hiddenStyle}>
-                                    {stackWord.doneCharacters}
+                                    {stackWord.remainingCharacters}
                                 </span>
-                                <span>{stackWord.remainingCharacters}</span>
-                            </li>
+                            </div>
                         </li>
                     ))}
                 </ul>

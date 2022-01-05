@@ -50,11 +50,67 @@ export const createStackWord = (
         id: topWordIndex,
         isActive: false,
         word: word,
-        doneCharacters: word,
-        remainingCharacters: '',
+        doneCharacters: '',
+        remainingCharacters: word,
         mistakeCount: 0,
         wasLastCharacterMistake: false
     }
+}
+
+export const activateStackWord = (stackWord: StackWord): StackWord => {
+    return { ...stackWord, isActive: true }
+}
+
+export const updateStackWord = (
+    stackWord: StackWord,
+    stackWords: StackWord[]
+): StackWord[] => {
+    const wordIndex = stackWords.findIndex(
+        (existingStackWord) => existingStackWord.id === stackWord.id
+    )
+
+    const clonedStackWords = [...stackWords]
+    clonedStackWords[wordIndex] = stackWord
+
+    return clonedStackWords
+}
+
+export const getStackWordById = (
+    id: number,
+    stackWords: StackWord[]
+): StackWord => {
+    const wordIndex = stackWords.findIndex(
+        (existingStackWord) => existingStackWord.id === id
+    )
+
+    return stackWords[wordIndex]
+}
+
+export const progressStackWord = (stackWord: StackWord): StackWord => {
+    const progressedStackWord = {
+        ...stackWord,
+        doneCharacters:
+            stackWord.doneCharacters +
+            stackWord.remainingCharacters.slice(0, 1),
+        remainingCharacters: stackWord.remainingCharacters.slice(1),
+        wasLastCharacterMistake: false
+    }
+
+    return progressedStackWord
+}
+
+export const removeStackWord = (
+    stackWord: StackWord,
+    stackWords: StackWord[]
+): StackWord[] => {
+    const wordIndex = stackWords.findIndex(
+        (existingStackWord) => existingStackWord.id === stackWord.id
+    )
+
+    return [
+        ...stackWords.slice(0, wordIndex),
+        ...stackWords.slice(wordIndex + 1)
+    ]
 }
 
 // export const removeWordById = (
