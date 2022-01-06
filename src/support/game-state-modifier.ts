@@ -112,8 +112,3 @@ export const removeStackWord = (
         ...stackWords.slice(wordIndex + 1)
     ]
 }
-
-// export const removeWordById = (
-//     stack: StackWord[],
-//     id: number
-// ): StackWord[] => {}

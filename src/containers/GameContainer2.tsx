@@ -11,6 +11,9 @@ import {
 } from '../support/game-state-modifier'
 import { StackWord } from '../types/stack'
 import { audioPlayer } from '../support/audioplayer'
+import { decrement, increment } from '../features/counter/counterSlice'
+import { connect } from 'react-redux'
+import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 
 audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
 audioPlayer.loadPool({
@@ -22,22 +25,30 @@ audioPlayer.loadPool({
     paths: ['mistype1.mp3', 'mistype2.mp3']
 })
 
-interface Props {}
+interface StoreProps {
+    score: number
+}
+
+interface DispatchProps {
+    increment: ActionCreatorWithoutPayload<string>
+    decrement: ActionCreatorWithoutPayload<string>
+}
+
+interface Props extends StoreProps, DispatchProps {}
 
 interface State {
     selectedWordId: number | null
     allWords: string[]
     remainingWords: string[]
     stack: StackWord[]
-    score: number
     topWordIndex: number
-    isGameLost: boolean
+    isGameOver: boolean
 }
 
-const TICK_DURATION = 2000
+const TICK_DURATION = 1000
 const MAX_STACK_SIZE = 15
 
-export default class GameContainer2 extends React.Component<Props, State> {
+class GameContainer2 extends React.Component<Props, State> {
     tick: NodeJS.Timeout | undefined
 
     constructor(props: Props) {
@@ -48,9 +59,8 @@ export default class GameContainer2 extends React.Component<Props, State> {
             allWords: demoWords,
             remainingWords: [],
             stack: [],
-            score: 10,
             topWordIndex: 0,
-            isGameLost: false
+            isGameOver: false
         }
     }
 
@@ -69,6 +79,10 @@ export default class GameContainer2 extends React.Component<Props, State> {
     }
 
     setTick() {
+        if (this.state.isGameOver) {
+            return
+        }
+
         this.tick = setTimeout(() => {
             this.addWordToStack()
             this.setTick()
@@ -89,10 +103,20 @@ export default class GameContainer2 extends React.Component<Props, State> {
             createStackWord(updates.selectedWord, topWordIndex)
         ]
 
+        const isGameLost = newStack.length > MAX_STACK_SIZE
+
+        if (isGameLost && this.tick) {
+            console.log(
+                'Game over. clearing timeout and removing event listener'
+            )
+            window.removeEventListener('keydown', this.handleKeyDown)
+        }
+
         this.setState({
             topWordIndex: topWordIndex,
             stack: newStack,
-            remainingWords: updates.remainingWords
+            remainingWords: updates.remainingWords,
+            isGameOver: isGameLost
         })
     }
 
@@ -101,7 +125,8 @@ export default class GameContainer2 extends React.Component<Props, State> {
             <Game2
                 stack={this.state.stack}
                 activeWordId={this.state.selectedWordId}
-                score={this.state.score}
+                score={this.props.score}
+                isGameOver={this.state.isGameOver}
                 onKeyDown={this.handleKeyDown}
             />
         )
@@ -179,6 +204,8 @@ export default class GameContainer2 extends React.Component<Props, State> {
         if (progressedStackWord.remainingCharacters.length === 0) {
             audioPlayer.playClip('bell')
 
+            this.props.increment()
+
             updatedStack = removeStackWord(progressedStackWord, stack)
 
             this.setState({
@@ -211,3 +238,13 @@ export default class GameContainer2 extends React.Component<Props, State> {
         })
     }
 }
+
+const mapStateToProps = (state: any) => {
+    return {
+        score: state.counter.value
+    }
+}
+
+const mapDispatchToProps = { increment, decrement }
+
+export default connect(mapStateToProps, mapDispatchToProps)(GameContainer2)

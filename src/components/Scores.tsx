@@ -1,12 +1,18 @@
 import React from 'react'
 
-export default class Scores extends React.Component {
+interface AttributeProps {
+    score: number
+}
+
+interface Props extends AttributeProps {}
+
+export default class Scores extends React.Component<Props> {
     render() {
         return (
             <div>
                 <ul>
                     <li>Level: {}</li>
-                    <li>Score: {}</li>
+                    <li>Score: {this.props.score}</li>
                     <li>Combo: {}</li>
                     <li>Combo Multiplier: {}</li>
                     <li>Combo Clear: {}</li>
