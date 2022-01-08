@@ -7,7 +7,8 @@ import GameOver from './GameOver'
 interface Props {
     stack: StackWord[]
     activeWordId: number | null
-    score: number
+    scoreTotal: number
+    multiplier: number
     isGameOver: boolean
 
     onKeyDown: (e: KeyboardEvent) => void
@@ -17,7 +18,10 @@ export default class Game2 extends React.Component<Props> {
     render() {
         return (
             <div onKeyDown={this.props.onKeyDown}>
-                <Scores score={this.props.score} />
+                <Scores
+                    scoreTotal={this.props.scoreTotal}
+                    multiplier={this.props.multiplier}
+                />
                 <Stack stack={this.props.stack} />
                 <GameOver isGameOver={this.props.isGameOver} />
             </div>

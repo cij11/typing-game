@@ -11,7 +11,7 @@ import {
 } from '../support/game-state-modifier'
 import { StackWord } from '../types/stack'
 import { audioPlayer } from '../support/audioplayer'
-import { decrement, increment } from '../features/counter/counterSlice'
+import { incrementScore, resetRun } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 
@@ -26,12 +26,13 @@ audioPlayer.loadPool({
 })
 
 interface StoreProps {
-    score: number
+    scoreTotal: number
+    multiplier: number
 }
 
 interface DispatchProps {
-    increment: ActionCreatorWithoutPayload<string>
-    decrement: ActionCreatorWithoutPayload<string>
+    incrementScore: ActionCreatorWithoutPayload<string>
+    resetRun: ActionCreatorWithoutPayload<string>
 }
 
 interface Props extends StoreProps, DispatchProps {}
@@ -125,7 +126,8 @@ class GameContainer2 extends React.Component<Props, State> {
             <Game2
                 stack={this.state.stack}
                 activeWordId={this.state.selectedWordId}
-                score={this.props.score}
+                scoreTotal={this.props.scoreTotal}
+                multiplier={this.props.multiplier}
                 isGameOver={this.state.isGameOver}
                 onKeyDown={this.handleKeyDown}
             />
@@ -204,7 +206,7 @@ class GameContainer2 extends React.Component<Props, State> {
         if (progressedStackWord.remainingCharacters.length === 0) {
             audioPlayer.playClip('bell')
 
-            this.props.increment()
+            this.props.incrementScore()
 
             updatedStack = removeStackWord(progressedStackWord, stack)
 
@@ -228,7 +230,7 @@ class GameContainer2 extends React.Component<Props, State> {
             stackWord.mistakeCount = stackWord.mistakeCount + 1
             stackWord.wasLastCharacterMistake = true
 
-            // TODO. If mistake count > tolerance, fail combo
+            this.props.resetRun()
         }
 
         const updatedStack = updateStackWord(stackWord, stack)
@@ -241,10 +243,14 @@ class GameContainer2 extends React.Component<Props, State> {
 
 const mapStateToProps = (state: any) => {
     return {
-        score: state.counter.value
+        scoreTotal: state.score.scoreTotal,
+        multiplier: state.score.multiplier
     }
 }
 
-const mapDispatchToProps = { increment, decrement }
+const mapDispatchToProps = {
+    incrementScore,
+    resetRun
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer2)
