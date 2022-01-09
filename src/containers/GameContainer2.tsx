@@ -46,8 +46,8 @@ interface State {
     isGameOver: boolean
 }
 
-const TICK_DURATION = 1000
-const MAX_STACK_SIZE = 15
+const TICK_DURATION = 2000
+export const STACK_LIMIT = 10
 
 class GameContainer2 extends React.Component<Props, State> {
     tick: NodeJS.Timeout | undefined
@@ -104,7 +104,7 @@ class GameContainer2 extends React.Component<Props, State> {
             createStackWord(updates.selectedWord, topWordIndex)
         ]
 
-        const isGameLost = newStack.length > MAX_STACK_SIZE
+        const isGameLost = newStack.length >= STACK_LIMIT
 
         if (isGameLost && this.tick) {
             console.log(
