@@ -1,9 +1,9 @@
 import React from 'react'
+import { ScoreState } from '../features/score/scoreSlice'
 import GameOver from './GameOver'
 
 interface AttributeProps {
-    scoreTotal: number
-    multiplier: number
+    score: ScoreState
     isGameOver: boolean
 }
 
@@ -16,9 +16,10 @@ export default class Scores extends React.Component<Props> {
                 <h2>Palavras Rápidas</h2>
 
                 <ul>
-                    <li>Level: 1</li>
-                    <li>Score: {this.props.scoreTotal}</li>
-                    <li>Combo Multiplier: {this.props.multiplier}</li>
+                    <li>Level: {this.props.score.level}</li>
+                    <li>Words: {this.props.score.words}</li>
+                    <li>Score: {this.props.score.scoreTotal}</li>
+                    <li>Combo Multiplier: {this.props.score.multiplier}</li>
                 </ul>
 
                 <div>

@@ -11,7 +11,11 @@ import {
 } from '../support/game-state-modifier'
 import { StackWord } from '../types/stack'
 import { audioPlayer } from '../support/audioplayer'
-import { incrementScore, resetRun } from '../features/score/scoreSlice'
+import {
+    incrementScore,
+    resetRun,
+    ScoreState
+} from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 
@@ -26,8 +30,7 @@ audioPlayer.loadPool({
 })
 
 interface StoreProps {
-    scoreTotal: number
-    multiplier: number
+    score: ScoreState
 }
 
 interface DispatchProps {
@@ -126,8 +129,7 @@ class GameContainer2 extends React.Component<Props, State> {
             <Game2
                 stack={this.state.stack}
                 activeWordId={this.state.selectedWordId}
-                scoreTotal={this.props.scoreTotal}
-                multiplier={this.props.multiplier}
+                score={this.props.score}
                 isGameOver={this.state.isGameOver}
                 onKeyDown={this.handleKeyDown}
             />
@@ -243,8 +245,7 @@ class GameContainer2 extends React.Component<Props, State> {
 
 const mapStateToProps = (state: any) => {
     return {
-        scoreTotal: state.score.scoreTotal,
-        multiplier: state.score.multiplier
+        score: state.score
     }
 }
 

@@ -3,12 +3,12 @@ import { StackWord } from '../types/stack'
 import Scores from './Scores'
 import Stack from './Stack'
 import GameOver from './GameOver'
+import { ScoreState } from '../features/score/scoreSlice'
 
 interface Props {
     stack: StackWord[]
     activeWordId: number | null
-    scoreTotal: number
-    multiplier: number
+    score: ScoreState
     isGameOver: boolean
 
     onKeyDown: (e: KeyboardEvent) => void
@@ -24,8 +24,7 @@ export default class Game2 extends React.Component<Props> {
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
                         <Scores
-                            scoreTotal={this.props.scoreTotal}
-                            multiplier={this.props.multiplier}
+                            score={this.props.score}
                             isGameOver={this.props.isGameOver}
                         />
                     </div>
