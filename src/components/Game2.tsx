@@ -2,7 +2,6 @@ import React, { KeyboardEvent } from 'react'
 import { StackWord } from '../types/stack'
 import Scores from './Scores'
 import Stack from './Stack'
-import GameOver from './GameOver'
 import { ScoreState } from '../features/score/scoreSlice'
 
 interface Props {

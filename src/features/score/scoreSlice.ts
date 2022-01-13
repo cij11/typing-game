@@ -16,7 +16,7 @@ const initialState: ScoreState = {
     level: 1
 }
 
-const WORDS_PER_LEVEL = 2
+const WORDS_PER_LEVEL = 8
 
 export const scoreSlice = createSlice({
     name: 'score',

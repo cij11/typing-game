@@ -1,8 +1,6 @@
 import React from 'react'
 import Game2 from '../components/Game2'
-import { demoWords } from '../word-lists/demo'
 import {
-    getWordFromRemaining,
     createStackWord,
     progressStackWord,
     getStackWordById,
@@ -18,6 +16,7 @@ import {
 } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
+import pickWord from '../support/word-picker'
 
 audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
 audioPlayer.loadPool({
@@ -42,8 +41,6 @@ interface Props extends StoreProps, DispatchProps {}
 
 interface State {
     selectedWordId: number | null
-    allWords: string[]
-    remainingWords: string[]
     stack: StackWord[]
     topWordIndex: number
     isGameOver: boolean
@@ -60,8 +57,6 @@ class GameContainer2 extends React.Component<Props, State> {
 
         this.state = {
             selectedWordId: null,
-            allWords: demoWords,
-            remainingWords: [],
             stack: [],
             topWordIndex: 0,
             isGameOver: false
@@ -90,21 +85,29 @@ class GameContainer2 extends React.Component<Props, State> {
         this.tick = setTimeout(() => {
             this.addWordToStack()
             this.setTick()
-        }, TICK_DURATION)
+        }, this.getTickDuration())
+    }
+
+    getTickDuration(): number {
+        if (this.props.score.level < 10) {
+            return TICK_DURATION - this.props.score.level * 100
+        }
+
+        if (this.props.score.level < 20) {
+            return TICK_DURATION - 10 * 100 - (this.props.score.level - 10) * 60
+        }
+
+        return 200
     }
 
     addWordToStack() {
         const topWordIndex = this.state.topWordIndex + 1
 
-        const updates = getWordFromRemaining(
-            this.state.remainingWords,
-            this.state.stack,
-            this.state.allWords
-        )
+        const selectedWord = pickWord(this.props.score.level)
 
         const newStack = [
             ...this.state.stack,
-            createStackWord(updates.selectedWord, topWordIndex)
+            createStackWord(selectedWord, topWordIndex)
         ]
 
         const isGameLost = newStack.length >= STACK_LIMIT
@@ -119,7 +122,6 @@ class GameContainer2 extends React.Component<Props, State> {
         this.setState({
             topWordIndex: topWordIndex,
             stack: newStack,
-            remainingWords: updates.remainingWords,
             isGameOver: isGameLost
         })
     }
@@ -216,6 +218,11 @@ class GameContainer2 extends React.Component<Props, State> {
                 stack: updatedStack,
                 selectedWordId: null
             })
+
+            // If the stack is empty, add a word
+            if (updatedStack.length === 0) {
+                this.addWordToStack()
+            }
         } else {
             this.setState({
                 stack: updatedStack
