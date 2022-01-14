@@ -20,7 +20,7 @@ export default class Stack extends React.Component<Props> {
 
         return (
             <div>
-                <ul className="uk-list">
+                <ul className="uk-list uk-list-striped">
                     {
                         // dummy elements to fill the remaining rows
                     }
@@ -33,7 +33,14 @@ export default class Stack extends React.Component<Props> {
                         </li>
                     ))}
                     {reversedStack.map((stackWord) => (
-                        <li key={`${stackWord.id}-${stackWord.isActive}`}>
+                        <li
+                            key={`${stackWord.id}-${stackWord.isActive}`}
+                            className={
+                                stackWord.isActive
+                                    ? 'uk-background-primary'
+                                    : ''
+                            }
+                        >
                             <ul className="uk-list"></ul>
                             <li>{stackWord.word}</li>
                             {1 && (

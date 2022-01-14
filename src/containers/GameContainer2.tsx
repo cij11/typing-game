@@ -103,7 +103,8 @@ class GameContainer2 extends React.Component<Props, State> {
     addWordToStack() {
         const topWordIndex = this.state.topWordIndex + 1
 
-        const selectedWord = pickWord(this.props.score.level)
+        const currentWords = this.state.stack.map((stackWord) => stackWord.word)
+        const selectedWord = pickWord(this.props.score.level, currentWords)
 
         const newStack = [
             ...this.state.stack,
