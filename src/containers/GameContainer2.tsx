@@ -12,7 +12,8 @@ import { audioPlayer } from '../support/audioplayer'
 import {
     incrementScore,
     resetRun,
-    ScoreState
+    ScoreState,
+    endGame
 } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
@@ -35,6 +36,7 @@ interface StoreProps {
 interface DispatchProps {
     incrementScore: ActionCreatorWithoutPayload<string>
     resetRun: ActionCreatorWithoutPayload<string>
+    endGame: ActionCreatorWithoutPayload<string>
 }
 
 interface Props extends StoreProps, DispatchProps {}
@@ -43,7 +45,6 @@ interface State {
     selectedWordId: number | null
     stack: StackWord[]
     topWordIndex: number
-    isGameOver: boolean
 }
 
 const TICK_DURATION = 2000
@@ -58,8 +59,7 @@ class GameContainer2 extends React.Component<Props, State> {
         this.state = {
             selectedWordId: null,
             stack: [],
-            topWordIndex: 0,
-            isGameOver: false
+            topWordIndex: 0
         }
     }
 
@@ -78,7 +78,7 @@ class GameContainer2 extends React.Component<Props, State> {
     }
 
     setTick() {
-        if (this.state.isGameOver) {
+        if (this.props.score.isGameOver) {
             return
         }
 
@@ -118,12 +118,13 @@ class GameContainer2 extends React.Component<Props, State> {
                 'Game over. clearing timeout and removing event listener'
             )
             window.removeEventListener('keydown', this.handleKeyDown)
+
+            this.props.endGame()
         }
 
         this.setState({
             topWordIndex: topWordIndex,
-            stack: newStack,
-            isGameOver: isGameLost
+            stack: newStack
         })
     }
 
@@ -133,7 +134,6 @@ class GameContainer2 extends React.Component<Props, State> {
                 stack={this.state.stack}
                 activeWordId={this.state.selectedWordId}
                 score={this.props.score}
-                isGameOver={this.state.isGameOver}
                 onKeyDown={this.handleKeyDown}
             />
         )
@@ -259,7 +259,8 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = {
     incrementScore,
-    resetRun
+    resetRun,
+    endGame
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer2)

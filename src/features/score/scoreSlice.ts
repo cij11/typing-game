@@ -6,6 +6,7 @@ export interface ScoreState {
     multiplier: number
     words: number
     level: number
+    isGameOver: boolean
 }
 
 const initialState: ScoreState = {
@@ -13,7 +14,8 @@ const initialState: ScoreState = {
     run: 0,
     multiplier: 1,
     words: 0,
-    level: 1
+    level: 1,
+    isGameOver: false
 }
 
 const WORDS_PER_LEVEL = 8
@@ -39,17 +41,21 @@ export const scoreSlice = createSlice({
                 }
             }
         },
-        resetScore: (state) => {
+        resetGame: (state) => {
             state = initialState
         },
         resetRun: (state) => {
             state.run = 0
             state.multiplier = 1
+        },
+        endGame: (state) => {
+            state.isGameOver = true
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementScore, resetScore, resetRun } = scoreSlice.actions
+export const { incrementScore, resetGame, resetRun, endGame } =
+    scoreSlice.actions
 
 export default scoreSlice.reducer

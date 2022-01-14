@@ -8,7 +8,6 @@ interface Props {
     stack: StackWord[]
     activeWordId: number | null
     score: ScoreState
-    isGameOver: boolean
 
     onKeyDown: (e: KeyboardEvent) => void
 }
@@ -22,10 +21,7 @@ export default class Game2 extends React.Component<Props> {
                         <Stack stack={this.props.stack} />
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
-                        <Scores
-                            score={this.props.score}
-                            isGameOver={this.props.isGameOver}
-                        />
+                        <Scores score={this.props.score} />
                     </div>
                 </div>
                 <div className="uk-section uk-section-secondary"></div>

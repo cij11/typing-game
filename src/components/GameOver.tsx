@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 interface Props {
     isGameOver: boolean
+    resetScore: () => void
 }
 
 export default class GameOver extends React.Component<Props> {
@@ -14,9 +15,12 @@ export default class GameOver extends React.Component<Props> {
         return (
             <div>
                 <div>Game Over</div>
-                <div>
-                    <Link to="/">Main Menu</Link>
-                </div>
+                <button
+                    onClick={() => window.location.reload()}
+                    className="uk-button uk-button-default"
+                >
+                    Restart Game
+                </button>
             </div>
         )
     }

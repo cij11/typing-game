@@ -1,10 +1,9 @@
 import React from 'react'
+import GameOverContainer from '../containers/GameOverContainer'
 import { ScoreState } from '../features/score/scoreSlice'
-import GameOver from './GameOver'
 
 interface AttributeProps {
     score: ScoreState
-    isGameOver: boolean
 }
 
 interface Props extends AttributeProps {}
@@ -23,7 +22,9 @@ export default class Scores extends React.Component<Props> {
                 </ul>
 
                 <div>
-                    <GameOver isGameOver={this.props.isGameOver} />
+                    <GameOverContainer
+                        isGameOver={this.props.score.isGameOver}
+                    />
                 </div>
             </div>
         )
