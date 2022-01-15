@@ -13,7 +13,8 @@ import {
     incrementScore,
     resetRun,
     ScoreState,
-    endGame
+    endGame,
+    useBomb
 } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
@@ -37,6 +38,7 @@ interface DispatchProps {
     incrementScore: ActionCreatorWithoutPayload<string>
     resetRun: ActionCreatorWithoutPayload<string>
     endGame: ActionCreatorWithoutPayload<string>
+    useBomb: ActionCreatorWithoutPayload<string>
 }
 
 interface Props extends StoreProps, DispatchProps {}
@@ -45,9 +47,11 @@ interface State {
     selectedWordId: number | null
     stack: StackWord[]
     topWordIndex: number
+    isInBombBreathingRoom: boolean
 }
 
 const TICK_DURATION = 2000
+const BREATHING_ROOM_TIME = 500
 export const STACK_LIMIT = 10
 
 class GameContainer2 extends React.Component<Props, State> {
@@ -59,7 +63,8 @@ class GameContainer2 extends React.Component<Props, State> {
         this.state = {
             selectedWordId: null,
             stack: [],
-            topWordIndex: 0
+            topWordIndex: 0,
+            isInBombBreathingRoom: false
         }
     }
 
@@ -83,7 +88,9 @@ class GameContainer2 extends React.Component<Props, State> {
         }
 
         this.tick = setTimeout(() => {
-            this.addWordToStack()
+            if (!this.state.isInBombBreathingRoom) {
+                this.addWordToStack()
+            }
             this.setTick()
         }, this.getTickDuration())
     }
@@ -143,10 +150,21 @@ class GameContainer2 extends React.Component<Props, State> {
         console.log('handling keydown')
         console.log(e.key)
 
+        if (['Enter', 'Return'].includes(e.key)) {
+            console.log('trying to use bomb')
+            this.handleTryUseBomb()
+        }
+
         if (this.state.selectedWordId === null) {
             this.handleTrySelectWord(e.key)
         } else if (this.state.selectedWordId !== null) {
             this.handleTryProgressWord(e.key)
+        }
+    }
+
+    handleTryUseBomb() {
+        if (this.props.score.bombs > 0) {
+            this.useBomb()
         }
     }
 
@@ -187,6 +205,31 @@ class GameContainer2 extends React.Component<Props, State> {
                 return
             }
         }
+    }
+
+    useBomb() {
+        if (this.state.isInBombBreathingRoom) {
+            return
+        }
+
+        this.props.useBomb()
+
+        const clearedStack = this.state.stack.filter(
+            (stackWord) => stackWord.isActive
+        )
+
+        setTimeout(() => this.endBreathingRoom(), BREATHING_ROOM_TIME)
+
+        this.setState({
+            isInBombBreathingRoom: true,
+            stack: clearedStack
+        })
+    }
+
+    endBreathingRoom() {
+        this.setState({
+            isInBombBreathingRoom: false
+        })
     }
 
     selectWord(id: number) {
@@ -260,7 +303,8 @@ const mapStateToProps = (state: any) => {
 const mapDispatchToProps = {
     incrementScore,
     resetRun,
-    endGame
+    endGame,
+    useBomb
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer2)

@@ -33,18 +33,17 @@ export default class Stack extends React.Component<Props> {
                         </li>
                     ))}
                     {reversedStack.map((stackWord) => (
-                        <li
-                            key={`${stackWord.id}-${stackWord.isActive}`}
-                            className={
-                                stackWord.isActive
-                                    ? 'uk-background-primary'
-                                    : ''
-                            }
-                        >
+                        <li key={`${stackWord.id}-${stackWord.isActive}`}>
                             <ul className="uk-list"></ul>
                             <li>{stackWord.word}</li>
                             {1 && (
-                                <li>
+                                <li
+                                    className={
+                                        stackWord.isActive
+                                            ? 'uk-background-primary'
+                                            : ''
+                                    }
+                                >
                                     <span>{stackWord.doneCharacters}</span>
                                     <span style={hiddenStyle}>
                                         {stackWord.remainingCharacters}
