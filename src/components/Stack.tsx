@@ -16,23 +16,13 @@ export default class Stack extends React.Component<Props> {
             Array(STACK_LIMIT - this.props.stack.length).keys()
         )
 
-        const reversedStack = [...this.props.stack].reverse()
-
         return (
             <div>
                 <ul className="uk-list uk-list-striped">
                     {
                         // dummy elements to fill the remaining rows
                     }
-                    {dummyList.map((dummy, i) => (
-                        <li key={`${i}-n/a`}>
-                            <ul className="uk-list"></ul>
-                            <li style={hiddenStyle}> .</li>
-
-                            <li style={hiddenStyle}> .</li>
-                        </li>
-                    ))}
-                    {reversedStack.map((stackWord) => (
+                    {this.props.stack.map((stackWord) => (
                         <li key={`${stackWord.id}-${stackWord.isActive}`}>
                             <ul className="uk-list"></ul>
                             <li>{stackWord.word}</li>
@@ -50,6 +40,14 @@ export default class Stack extends React.Component<Props> {
                                     </span>
                                 </li>
                             )}
+                        </li>
+                    ))}
+                    {dummyList.map((dummy, i) => (
+                        <li key={`${i}-n/a`}>
+                            <ul className="uk-list"></ul>
+                            <li style={hiddenStyle}> .</li>
+
+                            <li style={hiddenStyle}> .</li>
                         </li>
                     ))}
                 </ul>
