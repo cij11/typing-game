@@ -16,14 +16,15 @@ export default class Stats extends React.Component<Props> {
                         Words Per Minute:{' '}
                         {Math.round(this.props.score.wordsPerMinute)}
                     </li>
+                    <li>Longest Combo: {this.props.score.longestCombo}</li>
                 </ul>
 
-                <div>Ranks</div>
+                <div>Word Ranks</div>
                 <ul>
-                    <li>A {1}</li>
-                    <li>B {2}</li>
-                    <li>C {3}</li>
-                    <li>D {4}</li>
+                    <li>A: {this.props.score.a}</li>
+                    <li>B: {this.props.score.b}</li>
+                    <li>C: {this.props.score.c}</li>
+                    <li>D: {this.props.score.d}</li>
                 </ul>
             </div>
         )

@@ -15,7 +15,11 @@ import {
     ScoreState,
     endGame,
     useBomb,
-    addSecond
+    addSecond,
+    addA,
+    addB,
+    addC,
+    addD
 } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
@@ -41,6 +45,10 @@ interface DispatchProps {
     endGame: ActionCreatorWithoutPayload<string>
     useBomb: ActionCreatorWithoutPayload<string>
     addSecond: ActionCreatorWithoutPayload<string>
+    addA: ActionCreatorWithoutPayload<string>
+    addB: ActionCreatorWithoutPayload<string>
+    addC: ActionCreatorWithoutPayload<string>
+    addD: ActionCreatorWithoutPayload<string>
 }
 
 interface Props extends StoreProps, DispatchProps {}
@@ -284,6 +292,17 @@ class GameContainer extends React.Component<Props, State> {
 
             updatedStack = removeStackWord(progressedStackWord, stack)
 
+            const mistakes = progressedStackWord.mistakeCount
+            if (mistakes < 1) {
+                this.props.addA()
+            } else if (mistakes < 2) {
+                this.props.addB()
+            } else if (mistakes < 4) {
+                this.props.addC()
+            } else {
+                this.props.addD()
+            }
+
             this.setState({
                 stack: updatedStack,
                 selectedWordId: null
@@ -331,7 +350,11 @@ const mapDispatchToProps = {
     resetRun,
     endGame,
     useBomb,
-    addSecond
+    addSecond,
+    addA,
+    addB,
+    addC,
+    addD
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameContainer)

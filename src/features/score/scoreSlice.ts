@@ -16,6 +16,11 @@ export interface ScoreState {
     nextLevelWords: number
     secondsRunning: number
     wordsPerMinute: number
+    a: number
+    b: number
+    c: number
+    d: number
+    longestCombo: number
 }
 
 const initialState: ScoreState = {
@@ -29,15 +34,37 @@ const initialState: ScoreState = {
     nextBombScore: SCORE_PER_BOMB,
     nextLevelWords: WORDS_PER_LEVEL,
     secondsRunning: 0,
-    wordsPerMinute: 0
+    wordsPerMinute: 0,
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0,
+    longestCombo: 0
 }
 
 export const scoreSlice = createSlice({
     name: 'score',
     initialState,
     reducers: {
+        addA(state) {
+            state.a += 1
+        },
+        addB(state) {
+            state.b += 1
+        },
+        addC(state) {
+            state.c += 1
+        },
+        addD(state) {
+            state.d += 1
+        },
         incrementScore: (state) => {
             state.run += 1
+
+            if (state.run > state.longestCombo) {
+                state.longestCombo = state.run
+            }
+
             state.words += 1
 
             state.multiplier = Math.min(5, Math.ceil(state.run / 5))
@@ -85,7 +112,11 @@ export const {
     resetRun,
     endGame,
     useBomb,
-    addSecond
+    addSecond,
+    addA,
+    addB,
+    addC,
+    addD
 } = scoreSlice.actions
 
 export default scoreSlice.reducer
