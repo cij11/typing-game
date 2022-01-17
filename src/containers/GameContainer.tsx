@@ -1,5 +1,5 @@
 import React from 'react'
-import Game2 from '../components/Game2'
+import Game from '../components/Game'
 import {
     createStackWord,
     progressStackWord,
@@ -14,7 +14,8 @@ import {
     resetRun,
     ScoreState,
     endGame,
-    useBomb
+    useBomb,
+    addSecond
 } from '../features/score/scoreSlice'
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
@@ -39,6 +40,7 @@ interface DispatchProps {
     resetRun: ActionCreatorWithoutPayload<string>
     endGame: ActionCreatorWithoutPayload<string>
     useBomb: ActionCreatorWithoutPayload<string>
+    addSecond: ActionCreatorWithoutPayload<string>
 }
 
 interface Props extends StoreProps, DispatchProps {}
@@ -56,8 +58,9 @@ export const STACK_LIMIT = 10
 
 let lastKeydownEventTimestamp = 0
 
-class GameContainer2 extends React.Component<Props, State> {
+class GameContainer extends React.Component<Props, State> {
     tick: NodeJS.Timeout | undefined
+    wpmTick: NodeJS.Timeout | undefined
 
     constructor(props: Props) {
         super(props)
@@ -72,14 +75,13 @@ class GameContainer2 extends React.Component<Props, State> {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown)
-        window.addEventListener('keyup', this.handleKeyUp)
 
         this.setTick()
+        this.setWPMTick()
     }
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this.handleKeyDown)
-        window.removeEventListener('keyup', this.handleKeyUp)
 
         if (this.tick) {
             clearTimeout(this.tick)
@@ -109,6 +111,17 @@ class GameContainer2 extends React.Component<Props, State> {
         }
 
         return 200
+    }
+
+    setWPMTick() {
+        if (this.props.score.isGameOver) {
+            return
+        }
+
+        this.wpmTick = setTimeout(() => {
+            this.props.addSecond()
+            this.setWPMTick()
+        }, 1000)
     }
 
     addWordToStack() {
@@ -141,7 +154,7 @@ class GameContainer2 extends React.Component<Props, State> {
 
     render() {
         return (
-            <Game2
+            <Game
                 stack={this.state.stack}
                 activeWordId={this.state.selectedWordId}
                 score={this.props.score}
@@ -173,10 +186,6 @@ class GameContainer2 extends React.Component<Props, State> {
         } else if (this.state.selectedWordId !== null) {
             this.handleTryProgressWord(e.key)
         }
-    }
-
-    handleKeyUp = (e: any) => {
-        // keydownLocked = false
     }
 
     handleTryUseBomb() {
@@ -321,7 +330,8 @@ const mapDispatchToProps = {
     incrementScore,
     resetRun,
     endGame,
-    useBomb
+    useBomb,
+    addSecond
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(GameContainer2)
+export default connect(mapStateToProps, mapDispatchToProps)(GameContainer)

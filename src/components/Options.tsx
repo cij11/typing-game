@@ -19,7 +19,7 @@ export default class GameOver extends React.Component<Props, State> {
 
     render() {
         return (
-            <div>
+            <div className="uk-margin-large uk-margin-remove-left">
                 <div>Options</div>
                 <input
                     type="checkbox"

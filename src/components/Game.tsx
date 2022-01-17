@@ -12,7 +12,7 @@ interface Props {
     onKeyDown: (e: KeyboardEvent) => void
 }
 
-export default class Game2 extends React.Component<Props> {
+export default class Game extends React.Component<Props> {
     render() {
         return (
             <div onKeyDown={this.props.onKeyDown}>

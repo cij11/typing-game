@@ -14,6 +14,8 @@ export interface ScoreState {
     bombs: number
     nextBombScore: number
     nextLevelWords: number
+    secondsRunning: number
+    wordsPerMinute: number
 }
 
 const initialState: ScoreState = {
@@ -25,7 +27,9 @@ const initialState: ScoreState = {
     isGameOver: false,
     bombs: 2,
     nextBombScore: SCORE_PER_BOMB,
-    nextLevelWords: WORDS_PER_LEVEL
+    nextLevelWords: WORDS_PER_LEVEL,
+    secondsRunning: 0,
+    wordsPerMinute: 0
 }
 
 export const scoreSlice = createSlice({
@@ -64,12 +68,24 @@ export const scoreSlice = createSlice({
         },
         useBomb: (state) => {
             state.bombs -= 1
+        },
+        addSecond: (state) => {
+            state.secondsRunning += 1
+
+            const wordsPerSecond = state.words / state.secondsRunning
+            state.wordsPerMinute = wordsPerSecond * 60
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { incrementScore, resetGame, resetRun, endGame, useBomb } =
-    scoreSlice.actions
+export const {
+    incrementScore,
+    resetGame,
+    resetRun,
+    endGame,
+    useBomb,
+    addSecond
+} = scoreSlice.actions
 
 export default scoreSlice.reducer

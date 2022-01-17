@@ -2,6 +2,7 @@ import React from 'react'
 import GameOverContainer from '../containers/GameOverContainer'
 import { ScoreState } from '../features/score/scoreSlice'
 import Options from '../components/Options'
+import Stats from '../components/Stats'
 
 interface AttributeProps {
     score: ScoreState
@@ -23,6 +24,10 @@ export default class Scores extends React.Component<Props> {
                         <li>Combo Multiplier: {this.props.score.multiplier}</li>
                         <li>{this.renderBombs(this.props.score.bombs)}</li>
                     </ul>
+                </div>
+
+                <div>
+                    <Stats score={this.props.score} />
                 </div>
 
                 <div>

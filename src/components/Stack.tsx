@@ -1,6 +1,6 @@
 import React from 'react'
 import { StackWord } from '../types/stack'
-import { STACK_LIMIT } from '../containers/GameContainer2'
+import { STACK_LIMIT } from '../containers/GameContainer'
 
 interface Props {
     stack: StackWord[]
