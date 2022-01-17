@@ -13,7 +13,7 @@ export default class GameOver extends React.Component<Props> {
         }
 
         return (
-            <div>
+            <div className="uk-padding-large uk-padding-remove-left">
                 <div>Game Over</div>
                 <button
                     onClick={() => window.location.reload()}

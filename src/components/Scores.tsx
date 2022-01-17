@@ -1,6 +1,7 @@
 import React from 'react'
 import GameOverContainer from '../containers/GameOverContainer'
 import { ScoreState } from '../features/score/scoreSlice'
+import Options from '../components/Options'
 
 interface AttributeProps {
     score: ScoreState
@@ -12,15 +13,21 @@ export default class Scores extends React.Component<Props> {
     render() {
         return (
             <div>
-                <h2>Palavras Rápidas</h2>
+                <div>
+                    <h2>Palavras Rápidas</h2>
 
-                <ul>
-                    <li>Level: {this.props.score.level}</li>
-                    <li>Words: {this.props.score.words}</li>
-                    <li>Score: {this.props.score.scoreTotal}</li>
-                    <li>Combo Multiplier: {this.props.score.multiplier}</li>
-                    <li>{this.renderBombs(this.props.score.bombs)}</li>
-                </ul>
+                    <ul>
+                        <li>Level: {this.props.score.level}</li>
+                        <li>Words: {this.props.score.words}</li>
+                        <li>Score: {this.props.score.scoreTotal}</li>
+                        <li>Combo Multiplier: {this.props.score.multiplier}</li>
+                        <li>{this.renderBombs(this.props.score.bombs)}</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <Options />
+                </div>
 
                 <div>
                     <GameOverContainer

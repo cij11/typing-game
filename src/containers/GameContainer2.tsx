@@ -51,8 +51,10 @@ interface State {
 }
 
 const TICK_DURATION = 2000
-const BREATHING_ROOM_TIME = 500
+const BREATHING_ROOM_TIME = 3000
 export const STACK_LIMIT = 10
+
+let lastKeydownEventTimestamp = 0
 
 class GameContainer2 extends React.Component<Props, State> {
     tick: NodeJS.Timeout | undefined
@@ -70,12 +72,14 @@ class GameContainer2 extends React.Component<Props, State> {
 
     componentDidMount() {
         window.addEventListener('keydown', this.handleKeyDown)
+        window.addEventListener('keyup', this.handleKeyUp)
 
         this.setTick()
     }
 
     componentWillUnmount() {
         window.removeEventListener('keydown', this.handleKeyDown)
+        window.removeEventListener('keyup', this.handleKeyUp)
 
         if (this.tick) {
             clearTimeout(this.tick)
@@ -147,6 +151,15 @@ class GameContainer2 extends React.Component<Props, State> {
     }
 
     handleKeyDown = (e: any) => {
+        console.log(e)
+
+        if (e.timeStamp == lastKeydownEventTimestamp) {
+            return
+        }
+        lastKeydownEventTimestamp = e.timeStamp
+
+        e.preventDefault()
+
         console.log('handling keydown')
         console.log(e.key)
 
@@ -160,6 +173,10 @@ class GameContainer2 extends React.Component<Props, State> {
         } else if (this.state.selectedWordId !== null) {
             this.handleTryProgressWord(e.key)
         }
+    }
+
+    handleKeyUp = (e: any) => {
+        // keydownLocked = false
     }
 
     handleTryUseBomb() {

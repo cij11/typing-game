@@ -1,3 +1,5 @@
+import { parseIsMutedFromCookie } from './cookies'
+
 const NUM_SAMPLE_COPIES = 16
 
 export interface NamedClipConfig {
@@ -46,6 +48,10 @@ export const audioPlayer: AudioPlayer = {
     },
 
     playClip: function (clipName) {
+        if (parseIsMutedFromCookie() === 1) {
+            return
+        }
+
         const clip = this.clips[clipName]
 
         clip.index = (clip.index + 1) % NUM_SAMPLE_COPIES
@@ -73,6 +79,10 @@ export const audioPlayer: AudioPlayer = {
     },
 
     playPool: function (poolName) {
+        if (parseIsMutedFromCookie() === 1) {
+            return
+        }
+
         const pool = this.pools[poolName]
         const randomClipIndex = Math.floor(Math.random() * pool.clips.length)
 
