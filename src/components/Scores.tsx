@@ -28,7 +28,6 @@ export default class Scores extends React.Component<Props> {
                         <li>Words: {this.props.score.words}</li>
 
                         <li>Combo Multiplier: {this.props.score.multiplier}</li>
-                        <li>{this.renderBombs(this.props.score.bombs)}</li>
                     </ul>
                 </div>
 
@@ -48,12 +47,5 @@ export default class Scores extends React.Component<Props> {
                 </div>
             </div>
         )
-    }
-
-    renderBombs(bombs: number) {
-        const singleBomb = ' ⏎ '
-        const bombString = singleBomb.repeat(bombs)
-
-        return <span>Bombs: {bombString}</span>
     }
 }

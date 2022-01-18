@@ -3,6 +3,7 @@ import { StackWord } from '../types/stack'
 import Scores from './Scores'
 import Stack from './Stack'
 import { ScoreState } from '../features/score/scoreSlice'
+import Bombs from './Bombs'
 
 interface Props {
     stack: StackWord[]
@@ -39,11 +40,15 @@ export default class Game extends React.Component<Props> {
                         style={borderStyle}
                         className="uk-width-1-2 uk-card uk-card-secondary uk-card-body"
                     >
-                        <Stack
-                            stack={this.props.stack}
-                            nextWord={this.props.nextWord}
-                        />
+                        <Bombs bombs={this.props.score.bombs} />
+                        <div>
+                            <Stack
+                                stack={this.props.stack}
+                                nextWord={this.props.nextWord}
+                            />
+                        </div>
                     </div>
+
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
                         <Scores
                             score={this.props.score}
