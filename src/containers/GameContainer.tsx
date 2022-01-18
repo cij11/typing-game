@@ -27,7 +27,7 @@ import pickWord from '../support/word-picker'
 import Cookies from 'js-cookie'
 import { getHighScore, setHighScore } from '../support/cookies'
 
-audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
+// audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
 audioPlayer.loadPool({
     name: 'keyhit',
     paths: ['keystrike1.mp3', 'keystrike2.mp3', 'keystrike3.mp3']
@@ -301,7 +301,7 @@ class GameContainer extends React.Component<Props, State> {
         let updatedStack = updateStackWord(progressedStackWord, stack)
 
         if (progressedStackWord.remainingCharacters.length === 0) {
-            audioPlayer.playClip('bell')
+            //   audioPlayer.playClip('bell')
 
             this.props.incrementScore()
 
