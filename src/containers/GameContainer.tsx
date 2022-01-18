@@ -26,7 +26,7 @@ import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import pickWord from '../support/word-picker'
 import { getHighScore, setHighScore } from '../support/cookies'
 
-// audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
+audioPlayer.loadClip({ name: 'bell', path: 'bell.mp3' })
 audioPlayer.loadPool({
     name: 'keyhit',
     paths: ['keystrike1.mp3', 'keystrike2.mp3', 'keystrike3.mp3']
@@ -69,7 +69,7 @@ interface State {
 
 const TICK_DURATION = 2000
 const BREATHING_ROOM_TIME = 3000
-export const STACK_LIMIT = 12
+export const STACK_LIMIT = 11
 
 let lastKeydownEventTimestamp = 0
 
@@ -305,7 +305,7 @@ class GameContainer extends React.Component<Props, State> {
         let updatedStack = updateStackWord(progressedStackWord, stack)
 
         if (progressedStackWord.remainingCharacters.length === 0) {
-            //   audioPlayer.playClip('bell')
+            audioPlayer.playClip('bell')
 
             this.props.incrementScore()
 
