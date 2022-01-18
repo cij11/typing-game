@@ -24,6 +24,8 @@ import {
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import pickWord from '../support/word-picker'
+import Cookies from 'js-cookie'
+import { getHighScore, setHighScore } from '../support/cookies'
 
 audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
 audioPlayer.loadPool({
@@ -150,6 +152,8 @@ class GameContainer extends React.Component<Props, State> {
             )
             window.removeEventListener('keydown', this.handleKeyDown)
 
+            this.trySetHighScore()
+
             this.props.endGame()
         }
 
@@ -158,6 +162,14 @@ class GameContainer extends React.Component<Props, State> {
             stack: newStack,
             nextWord: createStackWord(selectedWord, topWordIndex)
         })
+    }
+
+    trySetHighScore() {
+        const oldHighScore = getHighScore()
+
+        if (this.props.score.scoreTotal > oldHighScore) {
+            setHighScore(this.props.score.scoreTotal)
+        }
     }
 
     render() {
