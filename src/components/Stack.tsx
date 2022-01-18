@@ -9,8 +9,15 @@ interface Props {
 
 export default class Stack extends React.Component<Props> {
     render() {
+        const fontSize = '1.6vh'
+
         const hiddenStyle = {
-            color: '#00000000'
+            color: '#00000000',
+            fontSize: fontSize
+        }
+
+        const viewportFontSizeStyle = {
+            fontSize: fontSize
         }
 
         const dummyList = Array.from(
@@ -19,7 +26,10 @@ export default class Stack extends React.Component<Props> {
 
         return (
             <div>
-                <ul className="uk-list uk-list-striped">
+                <ul
+                    style={viewportFontSizeStyle}
+                    className="uk-list uk-list-striped"
+                >
                     {
                         // dummy elements to fill the remaining rows
                     }
@@ -29,7 +39,9 @@ export default class Stack extends React.Component<Props> {
                             className="uk-padding-remove-top uk-padding-remove-bottom"
                         >
                             <ul className="uk-list"></ul>
-                            <li>{stackWord.word}</li>
+                            <li style={viewportFontSizeStyle}>
+                                {stackWord.word}
+                            </li>
                             {1 && (
                                 <li
                                     className={
@@ -38,7 +50,9 @@ export default class Stack extends React.Component<Props> {
                                             : ''
                                     }
                                 >
-                                    <span>{stackWord.doneCharacters}</span>
+                                    <span style={viewportFontSizeStyle}>
+                                        {stackWord.doneCharacters}
+                                    </span>
                                     <span style={hiddenStyle}>
                                         {stackWord.remainingCharacters}
                                     </span>
