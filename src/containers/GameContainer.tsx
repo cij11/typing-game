@@ -24,7 +24,6 @@ import {
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import pickWord from '../support/word-picker'
-import Cookies from 'js-cookie'
 import { getHighScore, setHighScore } from '../support/cookies'
 
 // audioPlayer.loadClip({ name: 'bell', path: '/bell.mp3' })
@@ -54,7 +53,11 @@ interface DispatchProps {
     addD: ActionCreatorWithoutPayload<string>
 }
 
-interface Props extends StoreProps, DispatchProps {}
+interface AttributeProps {
+    remount: () => void
+}
+
+interface Props extends AttributeProps, StoreProps, DispatchProps {}
 
 interface State {
     selectedWordId: number | null
@@ -180,6 +183,7 @@ class GameContainer extends React.Component<Props, State> {
                 score={this.props.score}
                 onKeyDown={this.handleKeyDown}
                 nextWord={this.state.nextWord.word}
+                remount={this.props.remount}
             />
         )
     }

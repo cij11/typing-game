@@ -2,7 +2,8 @@ import React from 'react'
 
 interface Props {
     isGameOver: boolean
-    resetScore: () => void
+    resetGame: () => void
+    remount: () => void
 }
 
 export default class GameOver extends React.Component<Props> {
@@ -15,7 +16,10 @@ export default class GameOver extends React.Component<Props> {
             <div className="uk-padding-large uk-padding-remove-left">
                 <h3>Game Over</h3>
                 <button
-                    onClick={() => window.location.reload()}
+                    onClick={() => {
+                        this.props.resetGame()
+                        this.props.remount()
+                    }}
                     className="uk-button uk-button-default"
                 >
                     Restart Game

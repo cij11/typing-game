@@ -10,6 +10,7 @@ interface Props {
     score: ScoreState
     nextWord: string
 
+    remount: () => void
     onKeyDown: (e: KeyboardEvent) => void
 }
 
@@ -44,7 +45,10 @@ export default class Game extends React.Component<Props> {
                         />
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
-                        <Scores score={this.props.score} />
+                        <Scores
+                            score={this.props.score}
+                            remount={this.props.remount}
+                        />
                     </div>
                 </div>
                 <div className="uk-section uk-section-secondary uk-height-1-1"></div>

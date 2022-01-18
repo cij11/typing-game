@@ -4,7 +4,8 @@ import { resetGame } from '../features/score/scoreSlice'
 import GameOver from '../components/GameOver'
 
 interface Props {
-    resetScore: () => void
+    resetGame: () => void
+    remount: () => void
     isGameOver: boolean
 }
 
@@ -13,14 +14,15 @@ class GameOverContainer extends React.Component<Props> {
         return (
             <GameOver
                 isGameOver={this.props.isGameOver}
-                resetScore={this.props.resetScore}
+                resetGame={this.props.resetGame}
+                remount={this.props.remount}
             />
         )
     }
 }
 
 const mapDispatchToProps = {
-    resetScore: resetGame
+    resetGame: resetGame
 }
 
 export default connect(null, mapDispatchToProps)(GameOverContainer)

@@ -7,6 +7,8 @@ import { getHighScore } from '../support/cookies'
 
 interface AttributeProps {
     score: ScoreState
+
+    remount: () => void
 }
 
 interface Props extends AttributeProps {}
@@ -40,6 +42,7 @@ export default class Scores extends React.Component<Props> {
 
                 <div>
                     <GameOverContainer
+                        remount={this.props.remount}
                         isGameOver={this.props.score.isGameOver}
                     />
                 </div>

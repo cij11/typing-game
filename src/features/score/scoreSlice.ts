@@ -84,7 +84,8 @@ export const scoreSlice = createSlice({
             }
         },
         resetGame: (state) => {
-            state = initialState
+            Object.assign(state, initialState)
+            //  state = initialState
         },
         resetRun: (state) => {
             state.run = 0
