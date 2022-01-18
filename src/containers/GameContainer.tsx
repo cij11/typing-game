@@ -34,6 +34,7 @@ audioPlayer.loadPool({
     name: 'keymiss',
     paths: ['mistype1.mp3', 'mistype2.mp3']
 })
+audioPlayer.loadClip({ name: 'rip', path: 'rip.mp3' })
 
 interface StoreProps {
     score: ScoreState
@@ -245,6 +246,8 @@ class GameContainer extends React.Component<Props, State> {
         if (this.state.isInBombBreathingRoom) {
             return
         }
+
+        audioPlayer.playClip('rip')
 
         this.props.useBomb()
 
