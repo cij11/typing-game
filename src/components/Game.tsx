@@ -8,6 +8,7 @@ interface Props {
     stack: StackWord[]
     activeWordId: number | null
     score: ScoreState
+    nextWord: string
 
     onKeyDown: (e: KeyboardEvent) => void
 }
@@ -20,7 +21,7 @@ export default class Game extends React.Component<Props> {
             borderColor = '#FF5F00'
         }
 
-        if (this.props.stack.length > 8) {
+        if (this.props.stack.length > 9) {
             borderColor = '#FF0000'
         }
 
@@ -37,13 +38,16 @@ export default class Game extends React.Component<Props> {
                         style={borderStyle}
                         className="uk-width-1-2 uk-card uk-card-secondary uk-card-body"
                     >
-                        <Stack stack={this.props.stack} />
+                        <Stack
+                            stack={this.props.stack}
+                            nextWord={this.props.nextWord}
+                        />
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
                         <Scores score={this.props.score} />
                     </div>
                 </div>
-                <div className="uk-section uk-section-secondary"></div>
+                <div className="uk-section uk-section-secondary uk-height-1-1"></div>
             </div>
         )
     }

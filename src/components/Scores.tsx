@@ -16,7 +16,6 @@ export default class Scores extends React.Component<Props> {
             <div>
                 <div>
                     <h2>Palavras Rápidas</h2>
-
                     <ul>
                         <li>Level: {this.props.score.level}</li>
                         <li>Words: {this.props.score.words}</li>

@@ -58,11 +58,12 @@ interface State {
     stack: StackWord[]
     topWordIndex: number
     isInBombBreathingRoom: boolean
+    nextWord: StackWord
 }
 
 const TICK_DURATION = 2000
 const BREATHING_ROOM_TIME = 3000
-export const STACK_LIMIT = 10
+export const STACK_LIMIT = 12
 
 let lastKeydownEventTimestamp = 0
 
@@ -76,8 +77,9 @@ class GameContainer extends React.Component<Props, State> {
         this.state = {
             selectedWordId: null,
             stack: [],
-            topWordIndex: 0,
-            isInBombBreathingRoom: false
+            topWordIndex: 1,
+            isInBombBreathingRoom: false,
+            nextWord: createStackWord(pickWord(1, []), 1)
         }
     }
 
@@ -133,15 +135,11 @@ class GameContainer extends React.Component<Props, State> {
     }
 
     addWordToStack() {
+        const newStack = [...this.state.stack, this.state.nextWord]
+
         const topWordIndex = this.state.topWordIndex + 1
-
-        const currentWords = this.state.stack.map((stackWord) => stackWord.word)
+        const currentWords = newStack.map((stackWord) => stackWord.word)
         const selectedWord = pickWord(this.props.score.level, currentWords)
-
-        const newStack = [
-            ...this.state.stack,
-            createStackWord(selectedWord, topWordIndex)
-        ]
 
         const isGameLost = newStack.length >= STACK_LIMIT
 
@@ -156,7 +154,8 @@ class GameContainer extends React.Component<Props, State> {
 
         this.setState({
             topWordIndex: topWordIndex,
-            stack: newStack
+            stack: newStack,
+            nextWord: createStackWord(selectedWord, topWordIndex)
         })
     }
 
@@ -167,6 +166,7 @@ class GameContainer extends React.Component<Props, State> {
                 activeWordId={this.state.selectedWordId}
                 score={this.props.score}
                 onKeyDown={this.handleKeyDown}
+                nextWord={this.state.nextWord.word}
             />
         )
     }

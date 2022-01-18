@@ -4,6 +4,7 @@ import { STACK_LIMIT } from '../containers/GameContainer'
 
 interface Props {
     stack: StackWord[]
+    nextWord: string
 }
 
 export default class Stack extends React.Component<Props> {
@@ -23,7 +24,10 @@ export default class Stack extends React.Component<Props> {
                         // dummy elements to fill the remaining rows
                     }
                     {this.props.stack.map((stackWord) => (
-                        <li key={`${stackWord.id}-${stackWord.isActive}`}>
+                        <li
+                            key={`${stackWord.id}-${stackWord.isActive}`}
+                            className="uk-padding-remove-top uk-padding-remove-bottom"
+                        >
                             <ul className="uk-list"></ul>
                             <li>{stackWord.word}</li>
                             {1 && (
@@ -42,8 +46,34 @@ export default class Stack extends React.Component<Props> {
                             )}
                         </li>
                     ))}
+                    <li
+                        style={{ background: 'black' }}
+                        className="uk-padding-remove-top uk-padding-remove-bottom"
+                    >
+                        <ul className="uk-list">
+                            <li
+                                style={{ color: '#777777' }}
+                                className="uk-flex"
+                            >
+                                <div
+                                    className="uk-width-2-3"
+                                    style={{ color: '#777777' }}
+                                >
+                                    {this.props.nextWord}
+                                </div>
+                                <div className="uk-width-1-3 uk-text-right">
+                                    {`<< NEXT`}
+                                </div>
+                            </li>
+                        </ul>
+
+                        <li style={hiddenStyle}> .</li>
+                    </li>
                     {dummyList.map((dummy, i) => (
-                        <li key={`${i}-n/a`}>
+                        <li
+                            key={`${i}-n/a`}
+                            className="uk-padding-remove-top uk-padding-remove-bottom"
+                        >
                             <ul className="uk-list"></ul>
                             <li style={hiddenStyle}> .</li>
 
