@@ -31,7 +31,7 @@ export default class GameLauncher extends React.Component {
                         </div>
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
-                        <h2>Palavras Rápidas</h2>
+                        <h2>Word Prefect</h2>
                         <h3>Rules</h3>
                         <p>
                             <ul className="uk-list uk-list-divider">
@@ -56,7 +56,7 @@ export default class GameLauncher extends React.Component {
                         <div className="uk-flex uk-flex-center uk-padding">
                             <Link
                                 className="uk-button uk-button-default"
-                                to="/game"
+                                to="/typing-game/game"
                             >
                                 Start Game
                             </Link>

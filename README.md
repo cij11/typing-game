@@ -39,6 +39,16 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
+
+### Deploy to {github username}/typing-game
+
+Follow the instructions here, from step 4 onwards: https://dev.to/yuribenjamin/how-to-deploy-react-app-in-github-pages-2a1f
+
+### `npm run deploy`
+
+Note: the path 'typing-game' has to be defined in both the package.json homepage value, and included in each of the routes.
+
+
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).

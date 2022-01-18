@@ -8,8 +8,14 @@ function App() {
         <div className="App">
             <Router>
                 <Routes>
-                    <Route path="/" element={<GameLauncherContainer />}></Route>
-                    <Route path="/game" element={<GameContainer />}></Route>
+                    <Route
+                        path="/typing-game"
+                        element={<GameLauncherContainer />}
+                    ></Route>
+                    <Route
+                        path="/typing-game/game"
+                        element={<GameContainer />}
+                    ></Route>
                 </Routes>
             </Router>
         </div>
