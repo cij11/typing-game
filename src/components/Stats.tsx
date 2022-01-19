@@ -11,21 +11,21 @@ export default class Stats extends React.Component<Props> {
     render() {
         return (
             <div>
-                <ul>
-                    <li>
-                        Words Per Minute:{' '}
-                        {Math.round(this.props.score.wordsPerMinute)}
-                    </li>
-                    <li>Longest Combo: {this.props.score.longestCombo}</li>
-                </ul>
-
-                <div>Word Ranks</div>
-                <ul>
-                    <li>A: {this.props.score.a}</li>
-                    <li>B: {this.props.score.b}</li>
-                    <li>C: {this.props.score.c}</li>
-                    <li>D: {this.props.score.d}</li>
-                </ul>
+                <br />
+                <div>Words: {this.props.score.words}</div>
+                <div>
+                    Words Per Minute:{' '}
+                    {Math.round(this.props.score.wordsPerMinute)}
+                </div>
+                <div>Longest Combo: {this.props.score.longestCombo}</div>
+                <br />
+                <div>
+                    <div>Rank A - {this.props.score.a}</div>
+                    <div>Rank B - {this.props.score.b}</div>
+                    <div>Rank C - {this.props.score.c}</div>
+                    <div>Rank D - {this.props.score.d}</div>
+                </div>
+                <br />
             </div>
         )
     }

@@ -19,16 +19,12 @@ export default class Scores extends React.Component<Props> {
             <div>
                 <div>
                     <h2>Word Prefect</h2>
-                    <div className="uk-flex uk-flex-between">
-                        <span>Score: {this.props.score.scoreTotal}</span>
-                        <span>High Score: {getHighScore()}</span>
-                    </div>
-                    <ul>
-                        <li>Level: {this.props.score.level}</li>
-                        <li>Words: {this.props.score.words}</li>
+                    <div>Score: {this.props.score.scoreTotal}</div>
+                    <div>High Score: {getHighScore()}</div>
+                    <br />
 
-                        <li>Combo Multiplier: {this.props.score.multiplier}</li>
-                    </ul>
+                    <div>Level: {this.props.score.level}</div>
+                    <div>Combo Multiplier: {this.props.score.multiplier}</div>
                 </div>
 
                 <div>
