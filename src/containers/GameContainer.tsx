@@ -24,7 +24,11 @@ import {
 import { connect } from 'react-redux'
 import { ActionCreatorWithoutPayload } from '@reduxjs/toolkit'
 import pickWord from '../support/word-picker'
-import { getHighScore, setHighScore } from '../support/cookies'
+import {
+    getHighScore,
+    parseIsBellMutedFromCookie,
+    setHighScore
+} from '../support/cookies'
 
 audioPlayer.loadClip({ name: 'bell', path: 'bell.mp3' })
 audioPlayer.loadPool({
@@ -305,7 +309,9 @@ class GameContainer extends React.Component<Props, State> {
         let updatedStack = updateStackWord(progressedStackWord, stack)
 
         if (progressedStackWord.remainingCharacters.length === 0) {
-            audioPlayer.playClip('bell')
+            if (parseIsBellMutedFromCookie() === 0) {
+                audioPlayer.playClip('bell')
+            }
 
             this.props.incrementScore()
 
