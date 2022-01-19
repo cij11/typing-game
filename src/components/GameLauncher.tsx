@@ -46,7 +46,12 @@ export default class GameLauncher extends React.Component {
                                     points. Making a mistake resets your
                                     multiplier.
                                 </li>
-                                <li>Press Enter or Return to use a bomb.</li>
+                                <li>
+                                    Press Enter or Return to use a bomb. This
+                                    clears all the inactive words in your stack,
+                                    and temporarily reduces the speed of the
+                                    game. Your score is not affected.
+                                </li>
                                 <li>
                                     The game is over when your word stack is
                                     full.
