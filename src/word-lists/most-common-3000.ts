@@ -1776,7 +1776,6 @@ const wordList = [
     'novel',
     'now',
     'nowhere',
-    "n't",
     'nuclear',
     'number',
     'numerous',

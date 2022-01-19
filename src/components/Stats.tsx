@@ -12,7 +12,6 @@ export default class Stats extends React.Component<Props> {
         return (
             <div>
                 <br />
-                <div>Words Completed: {this.props.score.words}</div>
                 <div>
                     Words Per Minute:{' '}
                     {Math.round(this.props.score.wordsPerMinute)}

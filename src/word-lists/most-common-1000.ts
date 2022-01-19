@@ -567,7 +567,6 @@ const wordList = [
     'nothing',
     'notice',
     'now',
-    "n't",
     'number',
     'occur',
     'of',

@@ -13,7 +13,7 @@ export default class GameOver extends React.Component<Props> {
         }
 
         return (
-            <div className="uk-padding-large uk-padding-remove-left">
+            <div>
                 <h3>Game Over</h3>
                 <button
                     onClick={() => {

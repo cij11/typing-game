@@ -31,7 +31,7 @@ export default class GameLauncher extends React.Component {
                         </div>
                     </div>
                     <div className="uk-width-1-2 uk-card uk-card-primary uk-card-body">
-                        <h2>Word Prefect</h2>
+                        <h3>Word Prefect</h3>
                         <h3>Rules</h3>
                         <p>
                             <ul className="uk-list uk-list-divider">

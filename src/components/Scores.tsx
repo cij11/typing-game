@@ -18,7 +18,7 @@ export default class Scores extends React.Component<Props> {
         return (
             <div>
                 <div>
-                    <h2>Word Prefect</h2>
+                    <h3>Word Prefect</h3>
                     <div>Score: {this.props.score.scoreTotal}</div>
                     <div>High Score: {getHighScore()}</div>
                     <br />
