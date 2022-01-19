@@ -139,7 +139,9 @@ class GameContainer extends React.Component<Props, State> {
         }
 
         this.wpmTick = setTimeout(() => {
-            this.props.addSecond()
+            if (!this.state.isInBombBreathingRoom) {
+                this.props.addSecond()
+            }
             this.setWPMTick()
         }, 1000)
     }
