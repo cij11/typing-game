@@ -37,18 +37,19 @@ export default class GameLauncher extends React.Component {
                             <ul className="uk-list uk-list-divider">
                                 <li>
                                     Type words as they appear. If there are
-                                    multiple words available, start typing that
-                                    word to chose it
+                                    multiple words available, start typing any
+                                    word to chose it.
                                 </li>
                                 <li>
-                                    Finish words without making mistakes
-                                    multiply your score for completing words.
-                                    Making a mistake resets your multiplier.
+                                    Finish words without making mistakes to
+                                    increase your score multiplier and earn more
+                                    points. Making a mistake resets your
+                                    multiplier.
                                 </li>
-                                <li>Press Enter or Return to use a bomb</li>
+                                <li>Press Enter or Return to use a bomb.</li>
                                 <li>
                                     The game is over when your word stack is
-                                    full
+                                    full.
                                 </li>
                                 <li>Click 'Start Game' to begin</li>
                             </ul>
