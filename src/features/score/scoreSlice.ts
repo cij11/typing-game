@@ -21,6 +21,7 @@ export interface ScoreState {
     c: number
     d: number
     longestCombo: number
+    numBombsUsed: number
 }
 
 const initialState: ScoreState = {
@@ -39,7 +40,8 @@ const initialState: ScoreState = {
     b: 0,
     c: 0,
     d: 0,
-    longestCombo: 0
+    longestCombo: 0,
+    numBombsUsed: 0
 }
 
 export const scoreSlice = createSlice({
@@ -96,6 +98,12 @@ export const scoreSlice = createSlice({
         },
         useBomb: (state) => {
             state.bombs -= 1
+
+            state.numBombsUsed += 1
+
+            if (state.level > 8 + 2 * state.numBombsUsed) {
+                state.level = 8 + 2 * state.numBombsUsed
+            }
         },
         addSecond: (state) => {
             state.secondsRunning += 1

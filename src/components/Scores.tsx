@@ -23,7 +23,7 @@ export default class Scores extends React.Component<Props> {
                     <div>High Score: {getHighScore()}</div>
                     <br />
 
-                    <div>Level: {this.props.score.level}</div>
+                    <div>Speed: {this.props.score.level}</div>
                     <div>Combo Multiplier: {this.props.score.multiplier}</div>
                 </div>
 
