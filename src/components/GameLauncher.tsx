@@ -47,9 +47,9 @@ export default class GameLauncher extends React.Component {
                                     multiplier.
                                 </li>
                                 <li>
-                                    Press Enter or Return to use a bomb. This
-                                    clears all the inactive words in your stack,
-                                    and temporarily reduces the speed of the
+                                    Press Enter or Return to use a bomb. Bombs
+                                    clear all the inactive words in your stack,
+                                    and temporarily reduce the speed of the
                                     game. Your score is not affected.
                                 </li>
                                 <li>
