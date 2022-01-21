@@ -38,7 +38,7 @@ export default class Game extends React.Component<Props> {
                 <div className="uk-container-large uk-flex">
                     <div
                         style={borderStyle}
-                        className="uk-width-1-2 uk-card uk-card-secondary uk-card-body"
+                        className="uk-width-1-2 uk-card uk-card-secondary uk-card-body uk-padding-small"
                     >
                         <Bombs bombs={this.props.score.bombs} />
                         <div>
