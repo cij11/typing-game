@@ -37,6 +37,7 @@ export default class Stack extends React.Component<Props> {
                         <li
                             key={`${stackWord.id}-${stackWord.isActive}`}
                             className="uk-padding-remove-top uk-padding-remove-bottom"
+                            style={{ paddingTop: '3px' }}
                         >
                             <ul className="uk-list uk-margin-remove"></ul>
                             <li style={viewportFontSizeStyle}>
@@ -61,7 +62,7 @@ export default class Stack extends React.Component<Props> {
                         </li>
                     ))}
                     <li
-                        style={{ background: 'black' }}
+                        style={{ background: 'black', paddingTop: '3px' }}
                         className="uk-padding-remove-top uk-padding-remove-bottom"
                     >
                         <ul className="uk-list uk-margin-remove">
@@ -87,6 +88,7 @@ export default class Stack extends React.Component<Props> {
                         <li
                             key={`${i}-n/a`}
                             className="uk-padding-remove-top uk-padding-remove-bottom"
+                            style={{ paddingTop: '3px' }}
                         >
                             <ul className="uk-list uk-margin-remove"></ul>
                             <li style={hiddenStyle}> .</li>
