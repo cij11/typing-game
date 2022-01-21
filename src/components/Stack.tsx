@@ -9,7 +9,7 @@ interface Props {
 
 export default class Stack extends React.Component<Props> {
     render() {
-        const fontSize = '1.6vh'
+        const fontSize = '2.6vh'
 
         const hiddenStyle = {
             color: '#00000000',
@@ -38,7 +38,7 @@ export default class Stack extends React.Component<Props> {
                             key={`${stackWord.id}-${stackWord.isActive}`}
                             className="uk-padding-remove-top uk-padding-remove-bottom"
                         >
-                            <ul className="uk-list"></ul>
+                            <ul className="uk-list uk-margin-remove"></ul>
                             <li style={viewportFontSizeStyle}>
                                 {stackWord.word}
                             </li>
@@ -64,7 +64,7 @@ export default class Stack extends React.Component<Props> {
                         style={{ background: 'black' }}
                         className="uk-padding-remove-top uk-padding-remove-bottom"
                     >
-                        <ul className="uk-list">
+                        <ul className="uk-list uk-margin-remove">
                             <li
                                 style={{ color: '#777777' }}
                                 className="uk-flex"
@@ -88,7 +88,7 @@ export default class Stack extends React.Component<Props> {
                             key={`${i}-n/a`}
                             className="uk-padding-remove-top uk-padding-remove-bottom"
                         >
-                            <ul className="uk-list"></ul>
+                            <ul className="uk-list uk-margin-remove"></ul>
                             <li style={hiddenStyle}> .</li>
 
                             <li style={hiddenStyle}> .</li>

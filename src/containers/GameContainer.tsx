@@ -73,7 +73,7 @@ interface State {
 
 const TICK_DURATION = 2000
 const BREATHING_ROOM_TIME = 3000
-export const STACK_LIMIT = 11
+export const STACK_LIMIT = 10
 
 let lastKeydownEventTimestamp = 0
 
